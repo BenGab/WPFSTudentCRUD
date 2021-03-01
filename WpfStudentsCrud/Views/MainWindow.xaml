@@ -1,0 +1,46 @@
+﻿<Window x:Class="WpfStudentsCrud.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfStudentsCrud"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding Path=MainVM, Source={x:Static Application.Current}}">
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Width="300">
+            <ListBox ItemsSource="{Binding Path=Students}" SelectedItem="{Binding Path=SelectedStudent, Mode=TwoWay}" Height="200">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Path=FirstName}" />
+                            <TextBlock Text="{Binding Path=LastName}" Grid.Column="1" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Content="Add New" Command="{Binding Path=AddNewCommand}" />
+            <Button Content="Delete Selected" Command="{Binding Path=DeleteCommand}" />
+        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="First Name:" />
+            <TextBox Text="{Binding Path=SelectedStudent.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+            <TextBlock Text="Last Name:" Grid.Row="1" />
+            <TextBox Text="{Binding Path=SelectedStudent.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" />
+            <Button Content="Save" Grid.Row="2" Command="{Binding Path=SaveCommand}" />
+        </Grid>
+    </StackPanel>
+</Window>
